@@ -1,0 +1,8 @@
+^\.git/
+^scripts/
+^README\.md$
+^Archfile$
+^Aurfile$
+^install\.sh$
+^sys_units\.txt$
+^user_units\.txt$

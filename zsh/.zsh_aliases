@@ -1,0 +1,27 @@
+# ~/.zsh_aliases
+
+# General shortcuts
+alias l='ls -lAh --color=auto'
+alias grep='grep --color=auto'
+
+# Git shortcuts
+alias ga='git add'
+alias gc='git commit -v'
+alias gd='git diff'
+alias gst='git status'
+alias gco='git checkout'
+alias gb='git branch'
+alias gbr='git branch --remote'
+alias gup='git pull --rebase'
+alias gp='git push'
+alias gpsup='git push --set-upstream origin "$(git rev-parse --abbrev-ref HEAD)"'
+
+# Pacman shortcuts (Arch)
+alias pupdate='sudo pacman -Syu'
+alias pinstall='sudo pacman -S --needed'
+alias premove='sudo pacman -Rcns'
+
+# Other utilities
+alias c='clear'
+alias h='history'
+alias dkitty='kitty -d . --detach'

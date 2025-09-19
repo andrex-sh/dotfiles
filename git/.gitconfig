@@ -1,0 +1,22 @@
+[user]
+    name = Andre Xavier
+    email = 57808599+andre-xavier-dev@users.noreply.github.com
+    signingkey = ~/.ssh/github_andrex
+
+[core]
+    editor = nvim
+
+[init]
+	defaultBranch = main
+
+[color]
+    ui = auto
+
+[pull]
+    rebase = false
+
+[push]
+    default = simple
+
+[url "git@github.com:"]
+    insteadOf = https://github.com/
