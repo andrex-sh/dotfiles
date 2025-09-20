@@ -21,3 +21,7 @@ bindkey -v
 if [ -f "$HOME/.zsh_aliases" ]; then
     . "$HOME/.zsh_aliases"
 fi
+
+if [ -f "$HOME/.zsh_local" ]; then
+    . "$HOME/.zsh_local"
+fi
