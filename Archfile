@@ -5,6 +5,7 @@ docker-compose
 dolphin
 easyeffects
 efibootmgr
+exfat-utils
 firefox
 git
 grub
@@ -30,6 +31,7 @@ pipewire
 pipewire-alsa
 pipewire-jack
 pipewire-pulse
+qbittorrent
 rofi
 sof-firmware
 stow
