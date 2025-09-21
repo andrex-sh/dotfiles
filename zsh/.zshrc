@@ -18,7 +18,7 @@ setopt extendedglob
 bindkey -v
 # End of lines configured by zsh-newuser-install
 
-PROMPT="%B%{%F{#4b0032}%}%~❯%{%f%}%b "
+PROMPT="%B%{%F{#b2bfd9}%}%n%{%F{#82aaff}%} %~%{%F{#c792ea}%} ❯%{%f%}%b "
 
 if [ -f "$HOME/.zsh_aliases" ]; then
     . "$HOME/.zsh_aliases"
