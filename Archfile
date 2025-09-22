@@ -3,13 +3,11 @@ base-devel
 docker
 docker-compose
 dolphin
-easyeffects
 efibootmgr
 exfat-utils
 firefox
 git
 grub
-helvum
 hyprland
 hyprpolkitagent
 hyprshot
@@ -27,6 +25,7 @@ nnn
 noto-fonts
 noto-fonts-emoji
 openssh
+pavucontrol
 pipewire
 pipewire-alsa
 pipewire-jack

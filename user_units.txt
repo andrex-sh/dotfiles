@@ -3,3 +3,4 @@ pipewire.service
 wireplumber.service
 pipewire-pulse.socket
 pipewire.socket
+docker

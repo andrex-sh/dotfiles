@@ -65,4 +65,8 @@ xargs -a $REPO_DIR/sys_units.txt -n1 systemctl enable
 # Disable tty2 for ly
 systemctl disable getty@tty2.service
 
-echo "[*] Done."
+# Add your user to docker group
+sudo usermod -aG docker $USER
+newgrp docker
+
+echo "[*] Done. Logout or reboot..."
