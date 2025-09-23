@@ -69,4 +69,7 @@ systemctl disable getty@tty2.service
 sudo usermod -aG docker $USER
 newgrp docker
 
+# Install uv
+curl -LsSf https://astral.sh/uv/install.sh | sh
+
 echo "[*] Done. Logout or reboot..."

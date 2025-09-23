@@ -27,3 +27,5 @@ fi
 if [ -f "$HOME/.zsh_local" ]; then
     . "$HOME/.zsh_local"
 fi
+
+. "$HOME/.local/bin/env"
