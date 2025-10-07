@@ -1,0 +1,52 @@
+#!/usr/bin/env bash
+
+lock=""
+logout=""
+sleep=""
+reboot=""
+shutdown=""
+
+theme="${HOME}/.config/rofi/powermenu.rasi"
+
+# Menu options
+options="$lock
+$logout
+$sleep
+$reboot
+$shutdown"
+
+# ── Ask user ────────────────────────────────────────────────
+choice=$(echo -e "$options" | rofi -dmenu -i -p "Power" -theme "$theme")
+
+# ── Helper: lock screen depending on available tool ─────────
+lock_screen() {
+    if command -v i3lock &>/dev/null; then
+        i3lock -c 000000
+    elif command -v swaylock &>/dev/null; then
+        swaylock -c 000000
+    else
+        notify-send "No lock command found" "Install i3lock or swaylock"
+    fi
+}
+
+# ── Actions ─────────────────────────────────────────────────
+case "$choice" in
+    "$lock")
+        lock_screen
+        ;;
+    "$logout")
+        loginctl terminate-user "$(whoami)"
+        ;;
+    "$sleep")
+        systemctl suspend
+        ;;
+    "$reboot")
+        systemctl reboot
+        ;;
+    "$shutdown")
+        systemctl poweroff
+        ;;
+    *)
+        exit 0
+        ;;
+esac

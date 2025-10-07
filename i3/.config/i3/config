@@ -26,6 +26,11 @@ font pango:monospace 8
 # https://wiki.archlinux.org/index.php/XDG_Autostart
 exec --no-startup-id dex --autostart --environment i3
 
+# Disable screen blanking and DPMS (power saving)
+exec --no-startup-id xset s off          # disable screen saver
+exec --no-startup-id xset -dpms          # disable DPMS (suspend/standby)
+exec --no-startup-id xset s noblank      # don't blank the screen
+
 # The combination of xss-lock, nm-applet and pactl is a popular choice, so
 # they are included here as an example. Modify as you see fit.
 
@@ -39,6 +44,10 @@ exec --no-startup-id nm-applet
 
 # Start compositor
 exec_always --no-startup-id picom --experimental-backends --config ~/.config/picom/picom.conf
+
+# Input
+exec_always --no-startup-id xset r rate 150 50
+exec_always --no-startup-id setxkbmap -layout "us,br" -variant "intl,abnt2" -option "grp:win_space_toggle"
 
 # Use pactl to adjust volume in PulseAudio.
 set $refresh_i3status killall -SIGUSR1 i3status
@@ -151,7 +160,10 @@ bindsym $mod+Shift+r restart
 bindsym $mod+m exec --no-startup-id i3-msg exit
 
 # Suspend system
-bindsym $mod+Shift+l exec --no-startup-id systemctl suspend
+bindsym $mod+l exec --no-startup-id powermenu
+
+# Region screenshot
+bindsym $mod+Print exec --no-startup-id flameshot gui
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)

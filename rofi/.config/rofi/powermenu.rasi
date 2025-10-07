@@ -1,0 +1,78 @@
+configuration {
+    location: 0;
+    font: "JetBrainsMono Nerd Font 12";
+}
+
+* {
+    border: 0;
+    margin: 0;
+    padding: 0;
+    spacing: 0;
+
+    /* Palenight palette */
+    background: #292D3E;
+    background-alt: #32374D;
+    line: #676E95;
+    foreground: #A6ACCD;
+    foreground-alt: #C6C8D1;
+    comment: #676E95;
+    selected: #FFCB6B;
+    pink: #F07178;
+    purple: #C792EA;
+    blue: #82AAFF;
+    green: #C3E88D;
+
+    /* Fallback colors for text/elements */
+    background-color: @background;
+    text-color: @foreground;
+}
+
+window {
+    background-color: @background;
+    border: 2px;
+    border-color: @line;
+    border-radius: 12px;
+    width: 500px;
+    height: 140px;
+    x-offset: -4;
+    y-offset: 0;
+}
+
+listview {
+    background-color: @background;
+    columns: 1;
+    lines: 5;
+    spacing: 40px;
+    layout: horizontal;
+}
+
+mainbox {
+    background-color: @background;
+    children: [ listview ];
+    padding: 30px;
+}
+
+element {
+    background-color: @background;
+    text-color: @foreground;
+    orientation: horizontal;
+    font: "Font Awesome 6 Free 28";
+}
+
+element-text {
+    background-color: inherit;
+    text-color: inherit;
+    font: "Font Awesome 6 Free 40";
+    expand: false;
+    horizontal-align: 0.5;
+    vertical-align: 0.5;
+    margin: 0px;
+}
+
+element selected {
+    background-color: @background-alt;
+    text-color: @purple;
+    border: 0px;
+    border-color: @selected;
+    font: "Font Awesome 6 Free 28";
+}

@@ -56,7 +56,7 @@ echo "[*] Changing remote url to $REPO_URL"
 cd $REPO_DIR && git remote set-url origin $REPO_URL
 
 # Run stow
-cd $REPO_DIR && stow --adopt -v git hyprland kitty profile rofi waybar zsh
+cd $REPO_DIR && stow --adopt -v bin git hyprland kitty profile rofi waybar zsh
 
 # Enable units
 xargs -a $REPO_DIR/user_units.txt -n1 systemctl --user enable --now
