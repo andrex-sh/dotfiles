@@ -6,7 +6,8 @@ This repo *is* the chezmoi source directory.
 ## Bootstrap on a new machine
 
 ```sh
-sh -c "$(curl -fsLS get.chezmoi.io)"
+git clone git@github.com:andrex-sh/dotfiles.git ~/projects/dotfiles
+sh -c "$(curl -fsLS get.chezmoi.io)" -- -b "$HOME/.local/bin"
 ~/.local/bin/chezmoi init --source ~/projects/dotfiles --apply
 ```
 
