@@ -1,0 +1,22 @@
+{{- if .has_dock -}}
+profile docked {
+    output {{ .dock_primary_output }} enable mode {{ .dock_primary_mode }} position 0,0
+    output {{ .dock_secondary_output }} enable position {{ .dock_secondary_position }}
+{{- if and .disable_internal_when_docked (ne .internal_output .dock_primary_output) (ne .internal_output .dock_secondary_output) }}
+    output {{ .internal_output }} disable
+{{- end }}
+    exec $HOME/.config/kanshi/docked-workspaces.sh {{ .dock_primary_output }} {{ .dock_secondary_output }}
+}
+
+{{ end -}}
+profile laptop {
+    output {{ .internal_output }} enable position 0,0
+{{- if .has_dock }}
+{{- if ne .dock_primary_output .internal_output }}
+    output {{ .dock_primary_output }} disable
+{{- end }}
+{{- if ne .dock_secondary_output .internal_output }}
+    output {{ .dock_secondary_output }} disable
+{{- end }}
+{{- end }}
+}
