@@ -1,4 +1,1 @@
 sourceDir = "{{ .chezmoi.homeDir }}/projects/dotfiles"
-
-[data]
-    wifi_interface = {{ promptStringOnce . "wifi_interface" "Wi-Fi interface name as plain text, e.g. wlan0 or wlp114s0f0 (check with `ip link`)" | quote }}

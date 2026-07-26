@@ -16,6 +16,13 @@ set $filemanager yazi
 exec /usr/bin/lxqt-policykit-agent
 # Notification daemon
 exec mako
+# NetworkManager tray applet (wifi/VPN menu) - rendered by waybar's tray
+# module below; swaybar can't show its dbusmenu at all, so this only works
+# because waybar replaces the native bar.
+exec nm-applet
+# Status bar (replaces sway's native `bar {}` - swaybar can't render the
+# dbusmenu tray icons need, e.g. nm-applet's wifi/VPN menu)
+exec waybar
 
 # Wallpaper
 output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
@@ -212,18 +219,5 @@ bindsym $mod+r mode "resize"
 
     # Open the file manager
     bindsym $mod+y exec $term -e $filemanager
-
-#
-# Status Bar:
-#
-bar {
-    position top
-    status_command ~/.config/i3status/wrapper.sh
-    colors {
-        statusline #ffffff
-        background #1e1e2e
-        inactive_workspace #323232 #323232 #5c5c5c
-    }
-}
 
 include /etc/sway/config.d/*
