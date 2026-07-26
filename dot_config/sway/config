@@ -19,6 +19,10 @@ exec mako
 
 # Wallpaper
 output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
+# Don't add output mode/position/transform directives here - kanshi
+# (~/.config/kanshi/config, local-only) owns that. `reload` re-applies this
+# whole file, so a competing directive here would fight kanshi on every
+# plain `swaymsg reload` that doesn't also restart kanshi.service.
 
 ### Idle configuration
 # Lock after 300s idle, turn displays off after another 300s, back on on

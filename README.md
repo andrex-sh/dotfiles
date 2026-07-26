@@ -13,6 +13,8 @@ sh -c "$(curl -fsLS get.chezmoi.io)" -- -b "$HOME/.local/bin"
 
 Answer the prompts, then reload sway (`$mod+Shift+c`) or re-login.
 
+`~/.config/kanshi/config` is **not** managed by chezmoi — it's local/manual per machine, since monitor arrangements (outputs, positions, rotation) vary too much per machine to template well. Write one by hand after bootstrapping; see `man kanshi` and `dot_config/kanshi/executable_docked-workspaces.sh` for the workspace-assignment helper it can call.
+
 ## Daily workflow
 
 Edit files under `~/projects/dotfiles`, then:

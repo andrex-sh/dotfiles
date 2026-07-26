@@ -1,14 +1,4 @@
-{{ $hasDock := promptBoolOnce . "has_dock" "Does this machine have a docked/external-monitor kanshi profile? (y/n)" false -}}
 sourceDir = "{{ .chezmoi.homeDir }}/projects/dotfiles"
 
 [data]
     wifi_interface = {{ promptStringOnce . "wifi_interface" "Wi-Fi interface name as plain text, e.g. wlan0 or wlp114s0f0 (check with `ip link`)" | quote }}
-    internal_output = {{ promptStringOnce . "internal_output" "Internal/laptop panel output name as plain text, e.g. eDP-1 (check with `swaymsg -t get_outputs`)" "eDP-1" | quote }}
-    has_dock = {{ $hasDock }}
-{{- if $hasDock }}
-    dock_primary_output = {{ promptStringOnce . "dock_primary_output" "Primary (docked) monitor output name as plain text, e.g. HDMI-A-1" "HDMI-A-1" | quote }}
-    dock_primary_mode = {{ promptStringOnce . "dock_primary_mode" "Primary monitor mode as plain text, in <width>x<height>@<refresh>Hz format, e.g. 1920x1080@60.000Hz" "1920x1080@60.000Hz" | quote }}
-    dock_secondary_output = {{ promptStringOnce . "dock_secondary_output" "Secondary (docked) monitor output name as plain text, e.g. eDP-1 for the laptop panel, or a second external monitor's name" "eDP-1" | quote }}
-    dock_secondary_position = {{ promptStringOnce . "dock_secondary_position" "Secondary monitor position when docked, as plain text in <x>,<y> format, e.g. 1920,0" "1920,0" | quote }}
-    disable_internal_when_docked = {{ promptBoolOnce . "disable_internal_when_docked" "Disable the internal/laptop panel output when docked (i.e. this is a 2-external-monitor setup, not laptop+monitor)? (y/n)" false }}
-{{- end }}
