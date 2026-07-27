@@ -12,11 +12,17 @@ set $term foot
 set $menu fuzzel
 # Your preferred file manager
 set $filemanager yazi
-# Export sway's environment to D-Bus/systemd so session services like
-# xdg-desktop-portal-wlr (needed for screen sharing in Meet/Chromium) can
-# see WAYLAND_DISPLAY, SWAYSOCK, etc. Portals are activated over D-Bus and
-# don't otherwise inherit sway's process environment.
-exec dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP
+
+# Explicitly override XDG_CURRENT_DESKTOP to a clean "sway" (not a bare
+# re-export) in both systemd's manager env and the D-Bus activation env.
+# The session's real XDG_CURRENT_DESKTOP is "sway;wlroots" (semicolon, from
+# sway.desktop's DesktopNames), which breaks xdg-desktop-portal's
+# colon-separated desktop lookup and silently disables ScreenCast (no
+# fallback for it), breaking Meet/Chromium screen sharing. Some distros ship
+# their own fixup for this (e.g. Arch/CachyOS's sway package via
+# /etc/sway/config.d/50-systemd-user.conf, referencing FS#63021) but that
+# can't be relied on everywhere, so we set it ourselves.
+exec sh -c 'systemctl --user set-environment XDG_CURRENT_DESKTOP=sway; dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP=sway'
 
 # LXQt Authentication Agent
 exec /usr/bin/lxqt-policykit-agent
