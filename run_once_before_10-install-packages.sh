@@ -5,7 +5,7 @@ nerd_font_version="v3.4.0"
 nerd_font_sha256="ef552a3e638f25125c6ad4c51176a6adcdce295ab1d2ffacf0db060caf8c1582"
 
 install_pacman() {
-    pkgs="sway swaybg swaylock swayidle waybar foot fuzzel lxqt-policykit kanshi mako grim slurp wl-clipboard playerctl brightnessctl libpulse ttf-jetbrains-mono-nerd yazi tmux network-manager-applet pavucontrol"
+    pkgs="sway swaybg swaylock swayidle waybar foot fuzzel lxqt-policykit kanshi mako grim slurp wl-clipboard playerctl brightnessctl libpulse ttf-jetbrains-mono-nerd yazi tmux network-manager-applet pavucontrol xdg-desktop-portal xdg-desktop-portal-wlr pipewire wireplumber"
     missing=""
     for p in $pkgs; do
         pacman -Qi "$p" >/dev/null 2>&1 || missing="$missing $p"
@@ -19,7 +19,7 @@ install_pacman() {
 }
 
 install_apt() {
-    pkgs="sway swaybg swaylock swayidle waybar foot fuzzel lxqt-policykit kanshi mako-notifier grim slurp wl-clipboard playerctl brightnessctl pulseaudio-utils wget tar fontconfig ca-certificates tmux network-manager-gnome pavucontrol"
+    pkgs="sway swaybg swaylock swayidle waybar foot fuzzel lxqt-policykit kanshi mako-notifier grim slurp wl-clipboard playerctl brightnessctl pulseaudio-utils wget tar fontconfig ca-certificates tmux network-manager-gnome pavucontrol xdg-desktop-portal xdg-desktop-portal-wlr pipewire wireplumber"
     missing=""
     for p in $pkgs; do
         dpkg -s "$p" >/dev/null 2>&1 || missing="$missing $p"
