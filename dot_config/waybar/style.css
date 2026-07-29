@@ -35,9 +35,14 @@ window#waybar {
 #battery,
 #pulseaudio,
 #clock,
-#tray {
+#tray,
+#custom-power {
     padding: 0 10px;
     color: #ffffff;
+}
+
+#custom-power:hover {
+    background-color: #285577;
 }
 
 #memory.warning,

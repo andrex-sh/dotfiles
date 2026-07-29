@@ -11,7 +11,8 @@
         "battery",
         "pulseaudio",
         "clock",
-        "tray"
+        "tray",
+        "custom/power"
     ],
 
     "sway/language": {
@@ -55,5 +56,14 @@
     "tray": {
         "icon-size": 18,
         "spacing": 8
+    },
+
+    // Sits to the right of the tray (so right of nm-applet's icon). Opens a
+    // swaynag with lock/logout/suspend/poweroff - see
+    // ~/.config/sway/powermenu.sh.
+    "custom/power": {
+        "format": "PWR",
+        "tooltip": false,
+        "on-click": "$HOME/.config/sway/powermenu.sh"
     }
 }

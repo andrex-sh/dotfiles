@@ -46,18 +46,17 @@ output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
 ### Lid switch
 # Turn the internal panel off when the lid closes, back on when it opens.
 # --reload re-evaluates the current lid state on `swaymsg reload`, and
-# --locked lets it keep firing while swaylock is active (idle config below
-# locks the session well before the lid would ever be closed unlocked).
+# --locked keeps it firing while swaylock is active, so closing the lid on a
+# manually locked session still powers the panel down.
 bindswitch --reload --locked lid:on output eDP-1 disable
 bindswitch --reload --locked lid:off output eDP-1 enable
 
 ### Idle configuration
-# Lock after 300s idle, turn displays off after another 300s, back on on
-# resume, and always lock before sleep.
-exec swayidle -w \
-         timeout 300 'swaylock -f' \
-         timeout 600 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
-         before-sleep 'swaylock -f'
+# Deliberately none: no swayidle, so the session never blanks the displays or
+# locks itself, and you only authenticate once when the session starts. Locking
+# is manual only, via the waybar power button (powermenu.sh). Adding a swayidle
+# `before-sleep 'swaylock -f'` line here would undo that by demanding a password
+# on every resume from suspend.
 
 #
 # Input configuration
