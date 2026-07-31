@@ -1,3 +1,8 @@
+{{- /* Desktops have no /sys/class/power_supply/BAT*, and waybar renders the
+       battery module as a permanent dead reading rather than hiding it. The
+       power-profile menu is gated separately, on the daemon rather than on the
+       battery: desktops have power profiles too. */ -}}
+{{- $hasBattery := glob "/sys/class/power_supply/BAT*" -}}
 // waybar - sway laptop, plain-text labels (replaces the old i3status bar)
 {
     "layer": "top",
@@ -8,8 +13,8 @@
         "sway/language",
         "cpu",
         "memory",
-        "battery",
-        "pulseaudio",
+{{ if $hasBattery }}        "battery",
+{{ end }}        "pulseaudio",
         "clock",
         "tray",
         "custom/power"
@@ -59,7 +64,8 @@
     },
 
     // Sits to the right of the tray (so right of nm-applet's icon). Opens a
-    // swaynag with lock/logout/suspend/poweroff - see
+    // swaynag with lock/logout/suspend/poweroff and, where a power-profiles
+    // daemon is present, a nested power-profile menu - see
     // ~/.config/sway/powermenu.sh.
     "custom/power": {
         "format": "PWR",
