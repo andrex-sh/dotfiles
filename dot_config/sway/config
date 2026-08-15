@@ -1,0 +1,197 @@
+set $mod Mod4
+
+set $left h
+set $down j
+set $up k
+set $right l
+
+set $term foot
+set $menu fuzzel
+set $filemanager dolphin
+
+for_window [app_id="org.pulseaudio.pavucontrol"] floating enable, resize set width 750 height 450, move position cursor
+for_window [app_id="foot-btop"] floating enable, resize set width 80 ppt height 80 ppt, move position center
+for_window [app_id="gsimplecal"] floating enable, move position cursor
+
+# Steam/Godot-style child windows (settings, dialogs, tool panels) tile
+# instead of floating by default - these apps run under XWayland and mark
+# such windows via the X11 _NET_WM_WINDOW_TYPE hint, which sway can match on
+# directly. Global, not per-app: this is the same class of issue everywhere,
+# not something specific to one application.
+for_window [window_type="dialog"] floating enable
+for_window [window_type="utility"] floating enable
+
+exec sh -c 'systemctl --user set-environment XDG_CURRENT_DESKTOP=sway; dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP=sway'
+
+exec /usr/bin/lxqt-policykit-agent
+exec swaync
+exec nm-applet
+exec blueman-applet
+# Status bar (replaces sway's native `bar {}`); nm-applet/blueman-applet show
+# via its tray module.
+exec waybar
+
+output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
+# Don't add output mode/position/transform directives here - kanshi
+# (~/.config/kanshi/config, local-only) owns that. `reload` re-applies this
+# whole file, so a competing directive here would fight kanshi on every
+# plain `swaymsg reload` that doesn't also restart kanshi.service.
+
+### Lid switch
+# --reload re-evaluates the current lid state on `swaymsg reload`, and
+# --locked keeps it firing while swaylock is active, so closing the lid on a
+# manually locked session still powers the panel down.
+bindswitch --reload --locked lid:on output eDP-1 disable
+bindswitch --reload --locked lid:off output eDP-1 enable
+
+### Idle configuration
+# Deliberately none: no swayidle, so the session never blanks the displays or
+# locks itself, and you only authenticate once when the session starts. Locking
+# is manual only, via the waybar power button (powermenu.sh). Adding a swayidle
+# `before-sleep 'swaylock -f'` line here would undo that by demanding a password
+# on every resume from suspend.
+
+    input type:touchpad {
+    dwt enabled
+        tap enabled
+        middle_emulation enabled
+    }
+
+    input "type:keyboard" {
+        xkb_layout "us,br"
+        xkb_variant "intl,abnt2"
+        # Win+Space switches between layouts.
+        xkb_options "grp:win_space_toggle"
+    }
+
+    input * {
+        repeat_delay 200
+        repeat_rate 50
+    }
+#
+# Key bindings:
+#
+    bindsym $mod+Return exec $term
+
+    bindsym $mod+Shift+q kill
+
+    bindsym $mod+d exec $menu
+
+    # $mod+drag moves windows (works even when tiled, despite the name);
+    # $mod+right-click resizes. Swap to `inverse` to flip which button does what.
+    floating_modifier $mod normal
+
+    bindsym $mod+Shift+c reload; exec systemctl --user restart kanshi.service; exec sh -c 'pkill waybar; exec waybar'
+
+    bindsym $mod+Shift+e exec $HOME/.config/sway/powermenu.sh
+
+    bindsym $mod+n exec swaync-client -t -sw
+
+    # Moving around:
+    bindsym $mod+$left focus left
+    bindsym $mod+$down focus down
+    bindsym $mod+$up focus up
+    bindsym $mod+$right focus right
+
+    bindsym $mod+Left focus left
+    bindsym $mod+Down focus down
+    bindsym $mod+Up focus up
+    bindsym $mod+Right focus right
+
+    bindsym $mod+Shift+$left move left
+    bindsym $mod+Shift+$down move down
+    bindsym $mod+Shift+$up move up
+    bindsym $mod+Shift+$right move right
+
+    bindsym $mod+Shift+Left move left
+    bindsym $mod+Shift+Down move down
+    bindsym $mod+Shift+Up move up
+    bindsym $mod+Shift+Right move right
+#
+# Workspaces:
+#
+    bindsym $mod+1 workspace number 1
+    bindsym $mod+2 workspace number 2
+    bindsym $mod+3 workspace number 3
+    bindsym $mod+4 workspace number 4
+    bindsym $mod+5 workspace number 5
+    bindsym $mod+6 workspace number 6
+    bindsym $mod+7 workspace number 7
+    bindsym $mod+8 workspace number 8
+    bindsym $mod+9 workspace number 9
+    bindsym $mod+0 workspace number 10
+
+    bindsym $mod+Shift+1 move container to workspace number 1
+    bindsym $mod+Shift+2 move container to workspace number 2
+    bindsym $mod+Shift+3 move container to workspace number 3
+    bindsym $mod+Shift+4 move container to workspace number 4
+    bindsym $mod+Shift+5 move container to workspace number 5
+    bindsym $mod+Shift+6 move container to workspace number 6
+    bindsym $mod+Shift+7 move container to workspace number 7
+    bindsym $mod+Shift+8 move container to workspace number 8
+    bindsym $mod+Shift+9 move container to workspace number 9
+    bindsym $mod+Shift+0 move container to workspace number 10
+#
+# Layout stuff:
+#
+    bindsym $mod+b splith
+    bindsym $mod+v splitv
+
+    bindsym $mod+s layout stacking
+    bindsym $mod+w layout tabbed
+    bindsym $mod+e layout toggle split
+
+    bindsym $mod+f fullscreen
+
+    bindsym $mod+Shift+space floating toggle
+
+    bindsym $mod+g focus mode_toggle
+
+    bindsym $mod+a focus parent
+#
+# Scratchpad:
+#
+    bindsym $mod+Shift+minus move scratchpad
+
+    bindsym $mod+minus scratchpad show
+#
+# Resizing containers:
+#
+mode "resize" {
+    bindsym $left resize shrink width 10px
+    bindsym $down resize grow height 10px
+    bindsym $up resize shrink height 10px
+    bindsym $right resize grow width 10px
+
+    bindsym Left resize shrink width 10px
+    bindsym Down resize grow height 10px
+    bindsym Up resize shrink height 10px
+    bindsym Right resize grow width 10px
+
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+bindsym $mod+r mode "resize"
+#
+# Utilities:
+#
+    bindsym --locked XF86AudioMute exec pactl set-sink-mute \@DEFAULT_SINK@ toggle
+    bindsym --locked XF86AudioLowerVolume exec pactl set-sink-volume \@DEFAULT_SINK@ -5%
+    bindsym --locked XF86AudioRaiseVolume exec pactl set-sink-volume \@DEFAULT_SINK@ +5%
+    bindsym --locked XF86AudioMicMute exec pactl set-source-mute \@DEFAULT_SOURCE@ toggle
+
+    bindsym --locked XF86AudioPlay exec playerctl play-pause
+    bindsym --locked XF86AudioPause exec playerctl play-pause
+    bindsym --locked XF86AudioPrev exec playerctl previous
+    bindsym --locked XF86AudioNext exec playerctl next
+    bindsym --locked XF86AudioStop exec playerctl stop
+
+    bindsym --locked XF86MonBrightnessDown exec brightnessctl set 5%-
+    bindsym --locked XF86MonBrightnessUp exec brightnessctl set 5%+
+
+    # Rectangular selection, saved and copied to clipboard.
+    bindsym Print exec ~/.config/sway/screenshot.sh
+
+    bindsym $mod+Shift+Return exec $filemanager
+
+include /etc/sway/config.d/*
