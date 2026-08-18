@@ -7,7 +7,7 @@ set $right l
 
 set $term foot
 set $menu fuzzel
-set $filemanager dolphin
+set $filemanager thunar
 
 for_window [app_id="org.pulseaudio.pavucontrol"] floating enable, resize set width 750 height 450, move position cursor
 for_window [app_id="foot-btop"] floating enable, resize set width 80 ppt height 80 ppt, move position center

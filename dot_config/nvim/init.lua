@@ -1,4 +1,4 @@
-vim.otp.termguicolors = true
+vim.opt.termguicolors = true
 vim.cmd.colorscheme("habamax")
 
 -- ============================================================================
