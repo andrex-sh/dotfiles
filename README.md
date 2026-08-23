@@ -21,12 +21,12 @@ Wifi/VPN and bluetooth are handled by tray applets - `nm-applet` and `blueman-ap
 curl -fsSL https://raw.githubusercontent.com/andrex-sh/dotfiles/main/bootstrap.sh | sh
 ```
 
-`bootstrap.sh` clones this repo to `~/projects/dotfiles`, installs chezmoi, and runs `chezmoi init --apply` - equivalent to running these by hand:
+`bootstrap.sh` clones this repo to `~/Projects/dotfiles`, installs chezmoi, and runs `chezmoi init --apply` - equivalent to running these by hand:
 
 ```sh
-git clone https://github.com/andrex-sh/dotfiles.git ~/projects/dotfiles
+git clone https://github.com/andrex-sh/dotfiles.git ~/Projects/dotfiles
 sh -c "$(curl -fsLS get.chezmoi.io)" -- -b "$HOME/.local/bin"
-~/.local/bin/chezmoi init --source ~/projects/dotfiles --apply
+~/.local/bin/chezmoi init --source ~/Projects/dotfiles --apply
 ```
 
 First `apply` runs `run_once_install.sh`: installs packages, enables `ly@tty2.service`/`bluetooth.service`/`kanshi.service`. Answer the sudo prompt, then reboot. If tty2 already has a `getty@tty2.service` enabled, `sudo systemctl disable getty@tty2` first.

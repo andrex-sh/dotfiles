@@ -4,7 +4,7 @@
 set -eu
 
 repo="https://github.com/andrex-sh/dotfiles.git"
-dest="$HOME/projects/dotfiles"
+dest="$HOME/Projects/dotfiles"
 
 if [ ! -d "$dest" ]; then
     git clone "$repo" "$dest"
