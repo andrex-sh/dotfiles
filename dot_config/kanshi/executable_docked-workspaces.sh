@@ -4,6 +4,9 @@
 # Outputs may be given as a connector name (DP-3) or as a "make model serial"
 # identifier, which contains spaces - hence the inner quotes below, so sway
 # sees one output argument rather than several.
+# Whichever profile calls this should also `exec sh -c 'pkill waybar; exec
+# waybar'` - kanshi's login-time start races sway's own `exec waybar`, so
+# without this waybar keeps the pre-kanshi output layout until restarted.
 primary="$1"
 secondary="$2"
 

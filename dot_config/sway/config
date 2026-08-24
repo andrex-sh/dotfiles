@@ -23,12 +23,20 @@ for_window [window_type="utility"] floating enable
 
 exec sh -c 'systemctl --user set-environment XDG_CURRENT_DESKTOP=sway; dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP=sway'
 
+# kanshi.service is boot-scoped, not session-scoped (graphical-session.target
+# never actually activates on this machine, despite the unit declaring it) -
+# a same-boot relogin never restarts it on its own. Restart it here so every
+# sway startup gets a fresh kanshi run, which re-applies outputs and restarts
+# waybar itself (see ~/.config/kanshi/config, local-only).
+exec systemctl --user restart kanshi.service
+
 exec /usr/bin/lxqt-policykit-agent
-exec swaync
 exec nm-applet
 exec blueman-applet
 # Status bar (replaces sway's native `bar {}`); nm-applet/blueman-applet show
-# via its tray module.
+# via its tray module. waybar's own notification module and swaync's D-Bus
+# activation (org.erikreider.swaync{,.cc}.service) start swaync on demand -
+# no `exec swaync` here, or the two launchers race and swaync crash-loops.
 exec waybar
 
 output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
@@ -81,7 +89,7 @@ bindswitch --reload --locked lid:off output eDP-1 enable
     # $mod+right-click resizes. Swap to `inverse` to flip which button does what.
     floating_modifier $mod normal
 
-    bindsym $mod+Shift+c reload; exec systemctl --user restart kanshi.service; exec sh -c 'pkill waybar; exec waybar'
+    bindsym $mod+Shift+c reload; exec systemctl --user restart kanshi.service
 
     bindsym $mod+Shift+e exec $HOME/.config/sway/powermenu.sh
 
