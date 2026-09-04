@@ -18,7 +18,7 @@
         "tray"
     ],
     "sway/language": {
-        "format": "{long}",
+        "format": "{short}",
         "on-click": "swaymsg input type:keyboard xkb_switch_layout next"
     },
     "custom/hardware": {
