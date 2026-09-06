@@ -1,39 +1,37 @@
-vim.opt.termguicolors = true
-vim.cmd.colorscheme("habamax")
+vim.g.base46_cache = vim.fn.stdpath "data" .. "/base46/"
+vim.g.mapleader = " "
 
--- ============================================================================
--- OPTIONS
--- ============================================================================
-vim.opt.number = true -- line number
-vim.opt.relativenumber = true -- relative line numbers
-vim.opt.cursorline = true -- highlight current line
-vim.opt.wrap = false -- do not wrap lines by default
-vim.opt.scrolloff = 10 -- keep 10 lines above/below cursor
-vim.opt.sidescrolloff = 10 -- keep 10 lines to left/right of cursor
+-- bootstrap lazy and all plugins
+local lazypath = vim.fn.stdpath "data" .. "/lazy/lazy.nvim"
 
-vim.opt.tabstop = 2 -- tabwidth
-vim.opt.shiftwidth = 2 -- indent width
-vim.opt.softtabstop = 2 -- soft tab stop not tabs on tab/backspace
-vim.opt.expandtab = true -- use spaces instead of tabs
-vim.opt.smartindent = true -- smart auto-indent
-vim.opt.autoindent = true -- copy indent from current line
+if not vim.uv.fs_stat(lazypath) then
+  local repo = "https://github.com/folke/lazy.nvim.git"
+  vim.fn.system { "git", "clone", "--filter=blob:none", repo, "--branch=stable", lazypath }
+end
 
-vim.opt.ignorecase = true -- case insensitive search
-vim.opt.smartcase = true -- case sensitive if uppercase in string
-vim.opt.hlsearch = true -- highlight search matches
-vim.opt.incsearch = true -- show matches as you type
+vim.opt.rtp:prepend(lazypath)
 
-vim.opt.signcolumn = "yes" -- always show a sign column
-vim.opt.colorcolumn = "100" -- show a column at 100 position chars
-vim.opt.showmatch = true -- highlights matching brackets
-vim.opt.cmdheight = 1 -- single line command line
-vim.opt.completeopt = "menuone,noinsert,noselect" -- completion options
-vim.opt.showmode = false -- do not show the mode, instead have it in statusline
-vim.opt.laststatus = 2 -- per-window statusline (pairs with lualine's globalstatus = false)
-vim.opt.pumheight = 10 -- popup menu height
-vim.opt.pumblend = 10 -- popup menu transparency
-vim.opt.winblend = 0 -- floating window transparency
-vim.opt.conceallevel = 2 -- obsidian requirement
-vim.opt.concealcursor = "" -- do not hide cursorline in markup
-vim.opt.synmaxcol = 300 -- syntax highlighting limit
-vim.opt.fillchars = { eob = " " } -- hide "~" on empty lines
+local lazy_config = require "configs.lazy"
+
+-- load plugins
+require("lazy").setup({
+  {
+    "NvChad/NvChad",
+    lazy = false,
+    branch = "v2.5",
+    import = "nvchad.plugins",
+  },
+
+  { import = "plugins" },
+}, lazy_config)
+
+-- load theme
+dofile(vim.g.base46_cache .. "defaults")
+dofile(vim.g.base46_cache .. "statusline")
+
+require "options"
+require "autocmds"
+
+vim.schedule(function()
+  require "mappings"
+end)
