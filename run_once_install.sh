@@ -18,7 +18,7 @@ sudo pacman -S --needed \
     playerctl brightnessctl grim slurp wl-clipboard pavucontrol \
     thunar tumbler exo gvfs mpv libreoffice-fresh \
     ttf-jetbrains-mono-nerd pipewire pipewire-pulse wireplumber libnotify \
-    xdg-desktop-portal xdg-desktop-portal-wlr zenity rocm-smi-lib gsimplecal \
+    xdg-desktop-portal xdg-desktop-portal-wlr zenity rocm-smi-lib gsimplecal lazygit \
     paru brave-bin
 
 paru -S --needed qimgv
