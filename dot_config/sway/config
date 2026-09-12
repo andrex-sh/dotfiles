@@ -39,7 +39,7 @@ exec blueman-applet
 # no `exec swaync` here, or the two launchers race and swaync crash-loops.
 exec waybar
 
-output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
+output * bg ~/.config/sway/wallpaper.png fill
 # Don't add output mode/position/transform directives here - kanshi
 # (~/.config/kanshi/config, local-only) owns that. `reload` re-applies this
 # whole file, so a competing directive here would fight kanshi on every
