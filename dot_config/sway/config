@@ -39,6 +39,8 @@ exec blueman-applet
 # no `exec swaync` here, or the two launchers race and swaync crash-loops.
 exec waybar
 
+exec steam steam://open/bigpicture
+
 output * bg ~/.config/sway/wallpaper.png fill
 # Don't add output mode/position/transform directives here - kanshi
 # (~/.config/kanshi/config, local-only) owns that. `reload` re-applies this
