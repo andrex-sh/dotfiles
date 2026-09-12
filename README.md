@@ -4,7 +4,7 @@
 
 ## Tracked
 
-sway, waybar, swaync, swaylock, foot, fuzzel, the sway power-menu/screenshot/hwstatus scripts, kanshi's workspace-assignment helper + service, nvim, and ly (package + `ly@tty2.service` + `/etc/ly/config.ini`, autologin as `andrex` into `sway`).
+sway, waybar, swaync, swaylock, foot, fuzzel, the sway power-menu/screenshot/hwstatus scripts, kanshi's workspace-assignment helper + service, nvim, ly (package + `ly@tty2.service` + `/etc/ly/config.ini`, autologin as `andrex` into `sway`), and docker (package + `docker-compose` + `docker.service`, user added to the `docker` group).
 
 `/etc/ly/config.ini` lives at `ly/config.ini` in this repo (chezmoi only manages files under `$HOME`) and is installed by `run_onchange_ly-config.sh.tmpl`, which reruns whenever that file changes.
 
@@ -30,7 +30,7 @@ sh -c "$(curl -fsLS get.chezmoi.io)" -- -b "$HOME/.local/bin"
 ~/.local/bin/chezmoi init --source ~/Projects/dotfiles --apply
 ```
 
-First `apply` runs `run_once_install.sh`: installs packages, enables `ly@tty2.service`/`bluetooth.service`/`kanshi.service`. Answer the sudo prompt, then reboot. If tty2 already has a `getty@tty2.service` enabled, `sudo systemctl disable getty@tty2` first.
+First `apply` runs `run_once_install.sh`: installs packages, enables `ly@tty2.service`/`bluetooth.service`/`docker.service`/`kanshi.service`, adds you to the `docker` group. Answer the sudo prompt, then reboot (also picks up the `docker` group membership). If tty2 already has a `getty@tty2.service` enabled, `sudo systemctl disable getty@tty2` first.
 
 Then hand-write `~/.config/kanshi/config` for that machine.
 

@@ -68,7 +68,7 @@ bindswitch --reload --locked lid:off output eDP-1 enable
     input "type:keyboard" {
         xkb_layout "us,br"
         xkb_variant "altgr-intl,abnt2"
-        # Win+Space switches between layouts. Right Ctrl acts as AltGr (no physical AltGr on this keyboard).
+        # Win+Space switches between layouts. Right Ctrl acts as AltGr.
         xkb_options "grp:win_space_toggle,lv3:switch"
     }
 
