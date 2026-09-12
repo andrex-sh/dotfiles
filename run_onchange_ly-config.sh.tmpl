@@ -1,0 +1,8 @@
+#!/bin/sh
+# Installs the tracked ly config to /etc/ly/config.ini (chezmoi only manages
+# files under $HOME, so this script copies it out). Reruns whenever
+# ly/config.ini changes, via the hash below.
+# hash: {{ include "ly/config.ini" | sha256sum }}
+set -eu
+
+sudo install -m 644 "{{ .chezmoi.sourceDir }}/ly/config.ini" /etc/ly/config.ini
