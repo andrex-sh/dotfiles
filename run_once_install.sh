@@ -21,7 +21,7 @@ sudo pacman -S --needed \
     thunar tumbler exo gvfs mpv libreoffice-fresh \
     ttf-jetbrains-mono-nerd pipewire pipewire-pulse wireplumber libnotify \
     xdg-desktop-portal xdg-desktop-portal-wlr zenity rocm-smi-lib gsimplecal lazygit \
-    paru brave-bin docker docker-compose
+    paru brave-bin docker docker-compose cachyos-gaming-meta steam
 
 paru -S --needed qimgv
 
